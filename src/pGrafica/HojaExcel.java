@@ -1,5 +1,6 @@
 package pGrafica;
 
+import java.util.Stack;
 import java.util.regex.Pattern;
 
 public class HojaExcel {
@@ -11,6 +12,12 @@ public class HojaExcel {
 
 	public HojaExcel(String[][]hoja){
 		this.hojaEntrada=hoja;
+		this.hojaSalida=new int[hojaEntrada.length][hojaEntrada[0].length];
+		booleanaResuelta=new boolean[hojaEntrada.length][hojaEntrada[0].length];
+	}
+
+	public HojaExcel(int nFilas, int nColumnas) {
+		this.hojaEntrada=new String[nFilas][nColumnas];
 		this.hojaSalida=new int[hojaEntrada.length][hojaEntrada[0].length];
 		booleanaResuelta=new boolean[hojaEntrada.length][hojaEntrada[0].length];
 	}
@@ -75,7 +82,21 @@ public class HojaExcel {
 			}
 		}
 		//imprimo la hoja resuelta 
-		Main.imprimeHojaSalida(hojaSalida);
+		//imprimeHojaSalida(hojaSalida);
+	}
+
+	//imprimir hojaExcel despues de resolver
+	public static void imprimeHojaSalida(int[][] hojaSalida) {
+		for(int f=0;f<hojaSalida.length;f++){
+			for(int c=0; c<hojaSalida[f].length;c++){
+				if(c==hojaSalida[f].length-1){// si estoy ultima columna
+					System.out.print(hojaSalida[f][c]);
+				}else{
+					System.out.print(hojaSalida[f][c]+" ");
+				}
+			}
+			System.out.println();
+		}
 	}
 
 	//metodo que resuelve la suma de la formula
@@ -231,6 +252,21 @@ public class HojaExcel {
 			}
 		}			
 		return -1;//nunca debo llegar aqui
+	}
+
+	public String[][] getHojaEntrada() {
+		// TODO Apéndice de método generado automáticamente
+		return hojaEntrada;
+	}
+	//metodo que me cambia la hoja antigua por la de pantalla
+	public void setHojaEntradaCelda(int f, int c, String valor) {
+		hojaEntrada[f][c]= valor;
+		
+	}
+
+	public int[][] getHojaSalida() {
+		
+		return hojaSalida;
 	}
 }
 
