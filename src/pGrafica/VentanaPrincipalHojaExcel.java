@@ -33,80 +33,77 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
-	
-	///eduardo
-	
-	
-	//variables
+
+	//paneles
 	private JPanel panelTablero=new JPanel();
 	private JPanel panelPrincipal=new JPanel();
 	private JPanel panelArriba=new JPanel();
 	private JPanel panelAbajo=new JPanel();
-	
+
 	//Declaramos un objeto JMenuBar para crear la barra que contenga los menus 
 	private JMenuBar barraMenu; 
 
 	//Declaramos los menus que estran dentro de la barra de menus que terminamos de crear
 	private JMenu menuArchivo=new JMenu("Archivo");
 	private JMenu menuEditar=new JMenu("Editar");  
-	
+
 	//items de los menus
 	private JMenuItem menuArchivoNuevo=new JMenuItem("Nueva hoja");
 	private JMenuItem menuArchivoCargar=new JMenuItem("Cargar hoja");
 	private JMenuItem menuArchivoGuardar=new JMenuItem("Guardar hoja");
-	
+
 	private JMenuItem menuEditarResolver= new JMenuItem("Resolver");
 	private JMenuItem menuEditarDeshacer= new JMenuItem("Deshacer");
 	private JMenuItem menuEditarRehacer= new JMenuItem("Rehacer");
-	
-	
+
+
 	//hojas de calculo
 	private  HojaExcel oHojaExcel;
 	private String nombreArchivo="";
 	private DefaultTableModel modelo = new DefaultTableModel();
 	private JTable oTabla = new JTable (modelo);
 	private JButton[][] botonesCeldas;
-	
+
 	//panel de arriba
 	private JLabel etiqueta=new JLabel("soy una etiqueta");
 	private JTextField cajaTexto= new JTextField("soy una caha");
 	private JButton botton1= new JButton("soy un boton");
-	
+
 	//panel de abajo
-		private JLabel etiqueta1=new JLabel("soy una etiqueta");
-		private JTextField cajaTexto1= new JTextField("soy una caha");
-		private JButton botton2= new JButton("soy un boton");
-		
+	private JLabel etiqueta1=new JLabel("soy una etiqueta");
+	private JTextField cajaTexto1= new JTextField("soy una caha");
+	private JButton botton2= new JButton("soy un boton");
+
 	//hacer y desghacer
 	ArrayList<HojaExcel> listaHojasExcelMovRealizados= new ArrayList<HojaExcel>();
 	ArrayList<HojaExcel> listaHojasExcelMovDeshechos= new ArrayList<HojaExcel>();
-	
-	
+
+
 	//constructor de la ventana
 	public VentanaPrincipalHojaExcel() {
 		this.setTitle("Hoja Calculo 2019");		//colocamos titulo a la ventana
-        this.setSize(700,700); 					//ancho, alto
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//hacemos que cuando se cierre la ventana termina todo proceso
-        this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
-        //this.setResizable(false); 							// hacemos que la ventana no sea redimiensionable
-        inicializarMenus();
-        add(panelPrincipal);
-        cargarPaneles();
-		
+		this.setSize(700,700); 					//ancho, alto
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//hacemos que cuando se cierre la ventana termina todo proceso
+		this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
+		//this.setResizable(false); 							// hacemos que la ventana no sea redimiensionable
+		inicializarMenus();
+		add(panelPrincipal);
+		cargarPaneles();
+
 	}
-	
+
 	private void cargarPaneles() {
 		//cargo panel principal
 		panelPrincipal.setLayout(new BorderLayout());
 		panelTablero.setBackground(Color.GREEN);
 		panelPrincipal.add(panelTablero, BorderLayout.CENTER);
-		
+
 		//cargo panel de arriba
 		panelPrincipal.add(panelArriba, BorderLayout.NORTH);
 		//cargo panel de abajo
 		panelPrincipal.add(panelAbajo, BorderLayout.SOUTH);
 	}
-	
+
 	//panel de arriba
 	private void cargoPanelArriba() {
 		panelArriba.setBackground(Color.BLUE);
@@ -114,14 +111,14 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 		panelArriba.add(cajaTexto);
 		panelArriba.add(botton1);
 	}
-	
+
 	//panel de abajo
-		private void cargoPanelAbajo() {
-			panelAbajo.setBackground(Color.RED);
-			//.add(etiqueta1);
-			
-		}
-	
+	private void cargoPanelAbajo() {
+		panelAbajo.setBackground(Color.RED);
+		//.add(etiqueta1);
+
+	}
+
 	//metodo para inicializar los menus
 	private void inicializarMenus() {
 		//creo la barra Menu
@@ -131,14 +128,14 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 		//agregar los menus en la barra de menus
 		barraMenu.add(menuArchivo);
 		barraMenu.add(menuEditar);
-		
+
 		//agregaSubmenus
 		menuArchivo.add(menuArchivoNuevo);
 		menuArchivo.addSeparator();//separacion barras
 		menuArchivo.add(menuArchivoCargar);
 		menuArchivo.addSeparator();
 		menuArchivo.add(menuArchivoGuardar);
-		
+
 		menuEditar.add(menuEditarResolver);
 		menuEditar.addSeparator();
 		menuEditar.add(menuEditarDeshacer);
@@ -147,7 +144,7 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 
 		//menus desactivados
 		//menuArchivoNuevo.setEnabled(false);
-	
+
 		//creamos eventos
 		menuArchivoNuevo.addActionListener(this);
 		menuArchivoCargar.addActionListener(this);
@@ -164,15 +161,15 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 			int nFilas= Integer.parseInt(numeroFilasString);
 			String numeroColumnasString = JOptionPane.showInputDialog("Introduzca el numero de filas:");
 			int nColumnas= Integer.parseInt(numeroColumnasString);
-			
+
 			//para crear otra ventana nueva
-			
+
 			/*VentanaPrincipalHojaExcel oVentana=new VentanaPrincipalHojaExcel();
 			oVentana.oHojaExcel= new HojaExcel(nFilas, nColumnas);
 			oVentana.cargoPanelPrincipal();
 			oVentana.setVisible(true);
 			oVentana.dispose();//cerrar la ventana*/
-			
+
 			oHojaExcel= new HojaExcel(nFilas, nColumnas);
 			cargoPanelPrincipal();
 			addMovimientoRealizado(oHojaExcel);
@@ -185,7 +182,7 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 			cargoPanelAbajo();
 			addMovimientoRealizado(oHojaExcel);
 		}
-		
+
 		if(evento.getSource()==menuArchivoGuardar){
 			leerHojaPantalla();
 			guardar();	
@@ -220,7 +217,7 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 				cargoPanelPrincipal();
 			}
 		}
-		
+
 		if(evento.getSource()==menuEditarRehacer){
 			HojaExcel aux=buscoUltimoMovDesHecho();
 			if(aux!=null){
@@ -228,7 +225,7 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 				cargoPanelPrincipal();
 			}
 		}
-		
+
 	}
 	private HojaExcel buscoUltimoMovDesHecho() {
 		if(listaHojasExcelMovDeshechos.size()==0){
@@ -238,7 +235,7 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 			//guardo el movimienrto que voy a deshacer
 			HojaExcel oHojaExcel=listaHojasExcelMovDeshechos.get(listaHojasExcelMovDeshechos.size()-1);
 			addMovimientoRealizado(oHojaExcel);
-			
+
 			//lo borro
 			listaHojasExcelMovDeshechos.remove(listaHojasExcelMovDeshechos.size()-1);
 			return oHojaExcel;
@@ -254,30 +251,30 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 			//guardo el movimienrto que voy a deshacer
 			HojaExcel oHojaExcel=listaHojasExcelMovRealizados.get(listaHojasExcelMovRealizados.size()-1);
 			addMovimientoDeshecho(oHojaExcel);
-			
+
 			//lo borro
 			listaHojasExcelMovRealizados.remove(listaHojasExcelMovRealizados.size()-1);
 			//la devuelvo paar imprimir panatlla
 			oHojaExcel=listaHojasExcelMovRealizados.get(listaHojasExcelMovRealizados.size()-1);
 			return oHojaExcel;
 		}
-		
+
 	}
 
 	private void addMovimientoDeshecho(HojaExcel oHoja) {
 		HojaExcel oHojaAux = clonarHoja(oHoja.getHojaEntrada());
 		listaHojasExcelMovDeshechos.add(oHojaAux);
-		
+
 	}
 
 	//me carga la hoja de solucion
 	private void cargarHojaSolucion() {
 		System.out.println(oHojaExcel.getHojaEntrada().length+"tamañooooo");
 		panelTablero.removeAll();
-		
+
 		panelTablero.setVisible(false);
 		panelTablero.setLayout(new GridLayout(oHojaExcel.getHojaEntrada().length, oHojaExcel.getHojaEntrada()[0].length, 3, 3));
-			
+
 		/*oTabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		oTabla.getTableHeader().setReorderingAllowed(false);
 		String [] columnNombre= new String[oHojaExcel.getHojaEntrada()[0].length];
@@ -288,8 +285,8 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 		JScrollPane tableContainer = new JScrollPane(oTabla);
 		comprobarCeldaSeleccionada();
 		panelTablero.add(tableContainer, BorderLayout.CENTER);*/
-		
-		
+
+
 		///////////////oHojaExcel.getHojaEntrada()[0].length
 		botonesCeldas= new JButton[oHojaExcel.getHojaEntrada().length][oHojaExcel.getHojaEntrada()[0].length];
 		for (int f = 0; f < oHojaExcel.getHojaEntrada().length; f++) {
@@ -304,77 +301,77 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 		}	
 		panelTablero.setVisible(true);
 		//this.pack();//ajusta la ventana al tamaÒo de la tabla
-		
-		
+
+
 	}
 
 	//metodo para leerl la hoja por la pantalla 
 	private void leerHojaPantalla(){
 		for(int f=0; f<oHojaExcel.getHojaEntrada().length; f++){
 			for(int c=0; c<oHojaExcel.getHojaEntrada()[0].length; c++){
-			oHojaExcel.setHojaEntradaCelda(f, c, botonesCeldas[f][c].getText());
+				oHojaExcel.setHojaEntradaCelda(f, c, botonesCeldas[f][c].getText());
 			}
 		}
 	}
-	
-	
-	
+
+
+
 	private void comprobarCeldaSeleccionada() {
 		oTabla.addMouseListener(new MouseAdapter() {
-	        @Override
-	        public void mouseClicked(MouseEvent evt) {
-	            if (evt.getClickCount() == 1) {
-	            	oTabla = (JTable) evt.getSource();
-	                int fil = oTabla.rowAtPoint(evt.getPoint());
-	                int col=oTabla.columnAtPoint(evt.getPoint());
-	                System.out.println(fil+" "+col);
-	            }
-	        }
-	    });
+			@Override
+			public void mouseClicked(MouseEvent evt) {
+				if (evt.getClickCount() == 1) {
+					oTabla = (JTable) evt.getSource();
+					int fil = oTabla.rowAtPoint(evt.getPoint());
+					int col=oTabla.columnAtPoint(evt.getPoint());
+					System.out.println(fil+" "+col);
+				}
+			}
+		});
 	}
 	private void guardar() {
 		if(nombreArchivo.equals("")) 
 			guardarComo();
-		
-		FileWriter fichero = null;	
-        try {
-    		PrintWriter pw;
-    		fichero= new FileWriter(nombreArchivo);
-    		pw = new PrintWriter(fichero);
-    		
-    		//pw.println(oHojaCalculo.nColumnas()+" "+oHojaCalculo.nFilas());
-    		pw.println(oHojaExcel.getHojaEntrada().length+" "+oHojaExcel.getHojaEntrada()[0].length);
-    		//escribo la hoja en el fichero
-    		for (int f = 0; f < oHojaExcel.getHojaEntrada().length; f++) {
-    			for (int c = 0; c < oHojaExcel.getHojaEntrada()[0].length; c++) {
-    				pw.print(oHojaExcel.getHojaEntrada()[f][c]+" "); //sobra el ultimo espacio 
-    			}
-    			pw.println(); 
-    		}    
-    		pw.close();
-       		JOptionPane.showMessageDialog(null, "Hoja guardada","SALVAR",JOptionPane.INFORMATION_MESSAGE);
 
-         } catch (Exception e) {
-           // e.printStackTrace();
-        } finally {
-           try {
-           // Utilizamos finally para asegurarnos que se cierra el fichero.
-	           if (null != fichero) {
-	        	   	fichero.close();
-	           }
-           } catch (Exception e2) {
-              //e2.printStackTrace();
-           }
-        }	
+		FileWriter fichero = null;	
+		try {
+			PrintWriter pw;
+			fichero= new FileWriter(nombreArchivo);
+			pw = new PrintWriter(fichero);
+
+			//pw.println(oHojaCalculo.nColumnas()+" "+oHojaCalculo.nFilas());
+			pw.println(oHojaExcel.getHojaEntrada().length+" "+oHojaExcel.getHojaEntrada()[0].length);
+			//escribo la hoja en el fichero
+			for (int f = 0; f < oHojaExcel.getHojaEntrada().length; f++) {
+				for (int c = 0; c < oHojaExcel.getHojaEntrada()[0].length; c++) {
+					pw.print(oHojaExcel.getHojaEntrada()[f][c]+" "); //sobra el ultimo espacio 
+				}
+				pw.println(); 
+			}    
+			pw.close();
+			JOptionPane.showMessageDialog(null, "Hoja guardada","SALVAR",JOptionPane.INFORMATION_MESSAGE);
+
+		} catch (Exception e) {
+			// e.printStackTrace();
+		} finally {
+			try {
+				// Utilizamos finally para asegurarnos que se cierra el fichero.
+				if (null != fichero) {
+					fichero.close();
+				}
+			} catch (Exception e2) {
+				//e2.printStackTrace();
+			}
+		}	
 	}
 
 	private void guardarComo() {
 		//Crear una superficie grafica para elegir el nombre del fichero a usar para guardar el juego
 		final JFileChooser fc = new JFileChooser();
-		
+
 		//Mostrar la superficie grafica
 		int returnVal = fc.showSaveDialog(null);
-		
+
 		//if (returnVal == JFileChooser.APPROVE_OPTION) {
 		if (returnVal == 0) {
 			File file = fc.getSelectedFile();
@@ -386,18 +383,18 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 			}
 
 		} else {//cancelar y X es 1
-			
+
 			return;//salgo del metodo
 		}
-		
+
 		//compruebo si existe el nombre del fichero
 		File f = new File(nombreArchivo);
-		
+
 		if (f.exists()) {
 			int respuestaBoton = JOptionPane.showConfirmDialog (null, "El fichero existe quieres sobreescribirlo. \n\nSI->Sobreescribe el fichero \n\nNO->Sale sin guardar\n\n");
 			if(respuestaBoton == 0){ //si es cero
-			//if(respuestaBoton == JOptionPane.YES_OPTION){ //si es cero
-				
+				//if(respuestaBoton == JOptionPane.YES_OPTION){ //si es cero
+
 				guardar();
 			}
 			else if(respuestaBoton == JOptionPane.CANCEL_OPTION) {
@@ -410,16 +407,16 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 		else
 			//en el caso de que el nombre del fichero no exista, lo creo
 			guardar();
-		
+
 	}
 
 	private void cargoPanelPrincipal() {
 		System.out.println(oHojaExcel.getHojaEntrada().length+"tamañooooo");
 		panelTablero.removeAll();
-		
+
 		panelTablero.setVisible(false);
 		panelTablero.setLayout(new GridLayout(oHojaExcel.getHojaEntrada().length, oHojaExcel.getHojaEntrada()[0].length, 3, 3));
-			
+
 		/*oTabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		oTabla.getTableHeader().setReorderingAllowed(false);
 		String [] columnNombre= new String[oHojaExcel.getHojaEntrada()[0].length];
@@ -430,8 +427,8 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 		JScrollPane tableContainer = new JScrollPane(oTabla);
 		comprobarCeldaSeleccionada();
 		panelTablero.add(tableContainer, BorderLayout.CENTER);*/
-		
-		
+
+
 		///////////////oHojaExcel.getHojaEntrada()[0].length
 		botonesCeldas= new JButton[oHojaExcel.getHojaEntrada().length][oHojaExcel.getHojaEntrada()[0].length];
 		for (int f = 0; f < oHojaExcel.getHojaEntrada().length; f++) {
@@ -445,7 +442,7 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 		}	
 		panelTablero.setVisible(true);
 		//this.pack();//ajusta la ventana al tamaÒo de la tabla
-		
+
 	}
 
 	private void lectura() {
@@ -467,9 +464,9 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 			String[] filasCol=dimensiones.split(" ");
 			int columnas=Integer.parseInt(filasCol[0]);
 			int filas=Integer.parseInt(filasCol[1]);
-		 	
+
 			String[][] tablaExcel=new String[filas][columnas];
-			
+
 			for (int f = 0; f < filas; f++) {
 				String lineaCol= lineas.get(1+f);
 				String []lineaColVector= lineaCol.split(" ");
@@ -478,7 +475,7 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 				}
 			}
 			oHojaExcel= new HojaExcel(tablaExcel);
-		
+
 		}
 	}
 
@@ -512,7 +509,7 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 		final JFileChooser fc = new JFileChooser();
 		//In response to a button click:
 		int returnVal = fc.showOpenDialog(null);
-	
+
 		if (returnVal == JFileChooser.APPROVE_OPTION){
 			File file = fc.getSelectedFile();
 			//This is where a real application would open the file.
@@ -522,9 +519,9 @@ public class VentanaPrincipalHojaExcel extends JFrame implements ActionListener{
 			//error al seleccionar fichero
 		}
 	}
-	
-	
-	
+
+
+
 	//
 	public void addMovimientoRealizado(HojaExcel oHojaExcel){
 		HojaExcel oHojaExcel2= clonarHoja(oHojaExcel.getHojaEntrada());
