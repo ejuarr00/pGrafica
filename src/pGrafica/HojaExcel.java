@@ -73,9 +73,9 @@ public class HojaExcel {
 							hojaSalida[f][c]=resultado;
 							booleanaResuelta[f][c]=true;
 						}
-						//si no es formula ni numero error y fin
-					}if(!esFormula(hojaEntrada[f][c]) && esNumero(hojaEntrada[f][c])==false){
-						System.out.println("Entrada Inválida. Esto no es ni número ni fórmula.");
+						//si no es formula ni numero ni es la fila y columna 0 error y fin
+					}if(!esFormula(hojaEntrada[f][c]) && esNumero(hojaEntrada[f][c])==false&& f!=0 && c!=0){
+						System.out.println("Entrada Inválida. Fila: "+f+ "Columna: "+ c+ "Esto no es ni número ni fórmula:"+ hojaEntrada[f][c]);
 						System.exit(0);
 					}
 				}
@@ -125,7 +125,7 @@ public class HojaExcel {
 				System.out.println("Entrada Inválida. Las formulas son incorrectas.");
 				System.exit(0);
 			}
-			int numFila=Integer.parseInt(numeroFila)-1;
+			int numFila=Integer.parseInt(numeroFila)/*-1*/;
 			if(numFila<0|| numFila>=998){
 				System.out.println("Entrada Inválida. Las formulas son incorrectas, numero mayor de 999 o menor de 1.");
 				System.exit(0);
@@ -155,85 +155,85 @@ public class HojaExcel {
 	}
 	//metodo que transforma las letras en el numero equivalente
 	public int halloNumeroLetra(char letra){
-		int numeroLetra = 0;
+		int numeroLetra = 0+1;
 		switch(letra){
 		case 'A':
-			numeroLetra=1;
+			numeroLetra=1+1;
 			break;
 		case 'B':
-			numeroLetra=2;
+			numeroLetra=2+1;
 			break;
 		case 'C':
-			numeroLetra=3;
+			numeroLetra=3+1;
 			break;
 		case 'D':
-			numeroLetra=4;
+			numeroLetra=4+1;
 			break;
 		case 'E':
-			numeroLetra=5;
+			numeroLetra=5+1;
 			break;
 		case 'F':
-			numeroLetra=6;
+			numeroLetra=6+1;
 			break;
 		case 'G':
-			numeroLetra=7;
+			numeroLetra=7+1;
 			break;
 		case 'H':
-			numeroLetra=8;
+			numeroLetra=8+1;
 			break;
 		case 'I':
-			numeroLetra=9;
+			numeroLetra=9+1;
 			break;
 		case 'J':
-			numeroLetra=10;
+			numeroLetra=10+1;
 			break;
 		case 'K':
-			numeroLetra=11;
+			numeroLetra=11+1;
 			break;
 		case 'L':
-			numeroLetra=12;
+			numeroLetra=12+1;
 			break;
 		case 'M':
-			numeroLetra=13;
+			numeroLetra=13+1;
 			break;
 		case 'N':
-			numeroLetra=14;
+			numeroLetra=14+1;
 			break;
 		case 'O':
-			numeroLetra=15;
+			numeroLetra=15+1;
 			break;
 		case 'P':
-			numeroLetra=16;
+			numeroLetra=16+1;
 			break;
 		case 'Q':
-			numeroLetra=17;
+			numeroLetra=17+1;
 			break;
 		case 'R':
-			numeroLetra=18;
+			numeroLetra=18+1;
 			break;
 		case 'S':
-			numeroLetra=19;
+			numeroLetra=19+1;
 			break;
 		case 'T':
-			numeroLetra=20;
+			numeroLetra=20+1;
 			break;
 		case 'U':
-			numeroLetra=21;
+			numeroLetra=21+1;
 			break;
 		case 'V':
-			numeroLetra=22;
+			numeroLetra=22+1;
 			break;
 		case 'W':
-			numeroLetra=23;
+			numeroLetra=23+1;
 			break;
 		case 'X':
-			numeroLetra=24;
+			numeroLetra=24+1;
 			break;
 		case 'Y':
-			numeroLetra=25;
+			numeroLetra=25+1;
 			break;
 		case 'Z':
-			numeroLetra=26;
+			numeroLetra=26+1;
 			break;
 		default:
 			System.out.println("Entrada Inválida. Las letras de las formulas son incorrectas.");
@@ -254,6 +254,10 @@ public class HojaExcel {
 		return -1;//nunca debo llegar aqui
 	}
 
+	
+	
+	
+	
 	public String[][] getHojaEntrada() {
 		// TODO Apéndice de método generado automáticamente
 		return hojaEntrada;
