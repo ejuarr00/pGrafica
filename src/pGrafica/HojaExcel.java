@@ -252,11 +252,7 @@ public class HojaExcel {
 			}
 		}			
 		return -1;//nunca debo llegar aqui
-	}
-
-	
-	
-	
+	}	
 	
 	public String[][] getHojaEntrada() {
 		// TODO Apéndice de método generado automáticamente
@@ -265,7 +261,7 @@ public class HojaExcel {
 	//metodo que me cambia la hoja antigua por la de pantalla
 	public void setHojaEntradaCelda(int f, int c, String valor) {
 		hojaEntrada[f][c]= valor;
-		
+		//System.out.println(valor+ "valoooooooor"+ f+"X"+c);
 	}
 
 	public int[][] getHojaSalida() {
