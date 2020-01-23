@@ -69,7 +69,7 @@ public class VentanaHojaExcel extends JFrame implements ActionListener{
 	//panel de arriba
 	private JLabel etiqueta=new JLabel("Hoja excel" );
 	//private JTextField cajaTexto= new JTextField("caja");
-	//private JButton botton1= new JButton("boton");
+	private JButton botton1= new JButton("botonNumeroFormulas");
 
 	//panel de abajo
 	private JLabel etiquetaResuelta=new JLabel("Ya no se puede hacer mas cosas. Solo visualice los resultados.");
@@ -120,7 +120,8 @@ public class VentanaHojaExcel extends JFrame implements ActionListener{
 		panelArriba.setBackground(color2);
 		panelArriba.add(etiqueta);
 		//panelArriba.add(cajaTexto);
-		//panelArriba.add(botton1);
+		panelArriba.add(botton1);
+		
 	}
 
 	//panel de abajo
@@ -170,18 +171,20 @@ public class VentanaHojaExcel extends JFrame implements ActionListener{
 		menuEditarResolver.addActionListener(this);
 		menuEditarRehacer.addActionListener(this);
 		menuEditarDeshacer.addActionListener(this);
+		
+		botton1.addActionListener(this);
 
 		//evento numero formulas
 		//menuArchivoNumeroFormulas.addActionListener(this);
 	}
 
-	/*//metodo para saber si es formula
+	//metodo para saber si es formula
 		private boolean esFormula(String cadena) {
 			if(cadena.charAt(0)== '='){
 				return true;
 			}
 			return false;
-		}*/
+		}
 
 	@Override
 	public void actionPerformed(ActionEvent evento) {
@@ -197,17 +200,16 @@ public class VentanaHojaExcel extends JFrame implements ActionListener{
 
 		//crear una hoja nueva
 		if(evento.getSource()==menuArchivoNuevo){
-			String numeroFilasString = JOptionPane.showInputDialog("Introduzca el numero de filas:");
-			int nFilas= Integer.parseInt(numeroFilasString);
-			String numeroColumnasString = JOptionPane.showInputDialog("Introduzca el numero de filas:");
+			String numeroColumnasString = JOptionPane.showInputDialog("Introduzca el numero de Columnas:");
 			int nColumnas= Integer.parseInt(numeroColumnasString);
+			String numeroFilasString = JOptionPane.showInputDialog("Introduzca el numero de Filas:");
+			int nFilas= Integer.parseInt(numeroFilasString);
 			nuevo=true;
 			//para crear otra ventana nueva
 			oHojaExcel= new HojaExcel(nFilas+1, nColumnas+1);
 			cargoPanelPrincipal();
 			addMovimientoRealizado(oHojaExcel);
 		}
-
 		//guardar
 		if(evento.getSource()==menuArchivoGuardar){
 			leerHojaPantalla();
@@ -247,6 +249,7 @@ public class VentanaHojaExcel extends JFrame implements ActionListener{
 			//menuEditarRehacer.setEnabled(false);
 			panelPrincipal.add(panelAbajo, BorderLayout.SOUTH);
 			//JOptionPane.showMessageDialog(null, "Ya no se puede hacer mas cosas. Solo visualice los resultados.","ADVERTENCIA",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, HojaExcel.aux,"ADVERTENCIA",JOptionPane.INFORMATION_MESSAGE);
 		}
 
 		//Deshacer
@@ -267,8 +270,8 @@ public class VentanaHojaExcel extends JFrame implements ActionListener{
 			}
 		}
 
-		/*//para saber cuantas formulas hay en mi hojaExcel
-		if(evento.getSource()==menuArchivoNumeroFormulas) {
+		//para saber cuantas formulas hay en mi hojaExcel
+		if(evento.getSource()==botton1) {
 			int numeroFormulas=0;
 			for(int f=0; f<oHojaExcel.getHojaEntrada().length; f++){
 				for(int c=0; c<oHojaExcel.getHojaEntrada()[0].length; c++){
@@ -279,7 +282,7 @@ public class VentanaHojaExcel extends JFrame implements ActionListener{
 				}
 			}
 			JOptionPane.showMessageDialog(null, "El numero de formulas que hay en el progrma es: "+numeroFormulas,"ADVERTENCIA",JOptionPane.INFORMATION_MESSAGE);
-		}*/
+		}
 	}
 
 	//Metodo leer txt
@@ -528,7 +531,7 @@ public class VentanaHojaExcel extends JFrame implements ActionListener{
 		for (int f = 0; f < oHojaExcel.getHojaEntrada().length; f++) {
 			for (int c = 0; c < oHojaExcel.getHojaEntrada()[0].length; c++) {
 
-
+				
 				if(f==0&&c==0) {
 					JButton oBoton= new JButton("Filas→ & Columnas↓");
 					//oBoton.setBackground(Color.BLUE);
@@ -547,7 +550,16 @@ public class VentanaHojaExcel extends JFrame implements ActionListener{
 					//oBoton.addActionListener(this);
 					botonesCeldas[f][c]=oBoton;
 					panelTablero.add(oBoton);
+					
+				}else if(!HojaExcel.esFormula(oHojaExcel.getHojaEntrada()[f][c])&&!HojaExcel.esNumero(oHojaExcel.getHojaEntrada()[f][c])){
+					
+					String valorHoja=String.valueOf(oHojaExcel.getHojaEntrada()[f][c]);
+					JButton oBoton= new JButton(valorHoja);
+					botonesCeldas[f][c]=oBoton;
+					panelTablero.add(oBoton);
+					
 				}else{
+					
 					String valorHoja=String.valueOf(oHojaExcel.getHojaSalida()[f][c]);
 					JButton oBoton= new JButton(valorHoja);
 					//oBoton.setBackground(Color.CYAN);
@@ -557,6 +569,8 @@ public class VentanaHojaExcel extends JFrame implements ActionListener{
 				}	
 			}
 		}	
+		
+
 		panelTablero.setVisible(true);
 	}
 

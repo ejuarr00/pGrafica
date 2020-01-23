@@ -1,12 +1,3 @@
-añadir abajo un panel para meter cosas como añadir un resultado o algo
-
-poner (A,B,C...) en las columnas ojo, despues de Z va AA
-poner (1,2,3,.....) en las filas
-
-abrir hoja nueva--> tratar los errores entrada invalida
-hacer cambios en la hoja--> comprobar que el usuario pone un numero y una formula bien puesta; si da a cancelar queda la celda en blanco(ojo!!!!!) yo dejaria el valor de antes
-
-
 
 El alumno desarrollará un programa en Java siguiendo las directrices de los Interfaces Gráficos de Usuario y utilizando la biblioteca Swing
  que permita usar una mini hoja de cálculo como la definida para la práctica 1 de este curso. Así el programa permitirá:
@@ -25,3 +16,19 @@ la entrada a la Práctica I del que se elimina la primera fila, porque en cada f
 
 5. También contendrá un menú que permita deshacer la última acción realizada sobre la hoja de cálculo, manteniendo una lista de operaciones
  realizadas, incluida la operación de cálculo de la hoja. También permitirá rehacer operaciones previamente deshechas.
+ 
+ 
+ 
+ 
+ 
+ 
+ Modificacion: Que en las celdas puedas meter letras, y que al resolver muestre la matriz resulta con las palabras y tal y debajo saque una cadena con todas las palabras concatenadas tipo:
+1
+2 2
+7 Hola
+Mundo =A1
+
+Y la salida es;
+7 Hola
+Mundo 7
+HolaMundo

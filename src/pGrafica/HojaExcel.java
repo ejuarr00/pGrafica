@@ -9,6 +9,7 @@ public class HojaExcel {
 	private int[][] hojaSalida;
 	boolean booleanaResuelta[][];
 	private int noHeAcabado=-6666;
+	static String aux="";
 
 	public HojaExcel(String[][]hoja){
 		this.hojaEntrada=hoja;
@@ -34,7 +35,7 @@ public class HojaExcel {
 	} 
 
 	//metodo para saber si es formula
-	private boolean esFormula(String cadena) {
+	static boolean esFormula(String cadena) {
 		if(cadena.charAt(0)== '='){
 			return true;
 		}
@@ -75,8 +76,9 @@ public class HojaExcel {
 						}
 						//si no es formula ni numero ni es la fila y columna 0 error y fin
 					}if(!esFormula(hojaEntrada[f][c]) && esNumero(hojaEntrada[f][c])==false&& f!=0 && c!=0){
-						System.out.println("Entrada Inválida. Fila: "+f+ "Columna: "+ c+ "Esto no es ni número ni fórmula:"+ hojaEntrada[f][c]);
-						System.exit(0);
+						aux=aux+hojaEntrada[f][c];
+						//System.out.println("Entrada Inválida. Fila: "+f+ "Columna: "+ c+ "Esto no es ni número ni fórmula:"+ hojaEntrada[f][c]);
+						//System.exit(0);
 					}
 				}
 			}
